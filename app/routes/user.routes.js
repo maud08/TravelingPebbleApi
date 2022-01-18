@@ -9,6 +9,7 @@ module.exports = app => {
     unsecured.get("/", user.findAll);
     unsecured.get("/:id", user.findById);
     unsecured.put("/:id", user.update);
+    unsecured.delete("/:id", user.delete);
 
 
     app.use('/api/user', unsecured);

@@ -8,8 +8,13 @@ mongoose.Promise = global.Promise;
 const db = {};
 db.mongoose = mongoose;
 db.url = dbConfig;
+
+//User
 db.user = require("./user.model")(mongoose);
 db.role = require("./role.model")(mongoose);
-db.group = require("./group.model")(mongoose)
+db.group = require("./group.model")(mongoose);
+
+//Pebble
+db.pebble = require("./pebble.model")(mongoose);
 
 module.exports = db;

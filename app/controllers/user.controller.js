@@ -2,11 +2,6 @@ require('dotenv').config();
 const db = require("../models");
 const User = db.user;
 
-//Group and Role
-const GROUP_USER = "User";
-const ROLE_USER = "ROLE_USER";
-const GROUP_ADMIN = "Administrator";
-const ROLE_ADMIN = "ROLE_ADMIN";
 
 
 //CRUD
@@ -87,4 +82,23 @@ exports.update = (req, res) => {
     })
 }
 
+//#endregion
+
+//#region Delete
+exports.delete = (req, res) => {
+    const id = req.params.id;
+
+    User.findByIdAndRemove(id)
+    .then(data => {
+        if(!data){
+            res.status(404).send({message: `L'utilisateur avec l'id: ${id} n'a pas été trouvé ni supprimé`});
+        }
+        else{
+            res.send({message: `L'utilisateur avec l'id: ${id} a été supprimé`})
+        }
+    })
+    .catch(err => {
+        res.status(500).send({message: `L'utilisateur avec l'id: ${id} n'a pas été supprimé`})
+    })
+}
 //#endregion
