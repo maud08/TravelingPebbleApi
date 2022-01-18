@@ -4,7 +4,7 @@ module.exports = app => {
     let router = require("express").Router();
 
     router.post("/", controller.singIn);
-    router.get("/", controller.logout);
+    //router.get("/", controller.logout);
 
     app.use('/api/login', router);
 

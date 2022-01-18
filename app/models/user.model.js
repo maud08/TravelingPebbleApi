@@ -32,7 +32,19 @@ module.exports = mongoose => {
             type: String,
             require: true,
             trim: true
-        }
+        },
+        Groups:[
+            {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: "group"
+            }
+        ],
+        Roles:[
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "role"
+            }
+        ]
     
     },{
         versionKey: false,

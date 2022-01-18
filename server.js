@@ -29,7 +29,9 @@ app.get("/", (req, res) => {
 
 //routes
 require("./app/routes/user.routes")(app);
-
+require("./app/routes/auth.routes")(app);
+require("./app/routes/role.routes")(app);
+require("./app/routes/group.routes")(app);
 
 
 
@@ -38,3 +40,4 @@ require("./app/routes/user.routes")(app);
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 })
+

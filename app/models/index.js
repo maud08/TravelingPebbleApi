@@ -9,6 +9,7 @@ const db = {};
 db.mongoose = mongoose;
 db.url = dbConfig;
 db.user = require("./user.model")(mongoose);
-db.auth = require("./auth.model")(mongoose);
+db.role = require("./role.model")(mongoose);
+db.group = require("./group.model")(mongoose)
 
 module.exports = db;
