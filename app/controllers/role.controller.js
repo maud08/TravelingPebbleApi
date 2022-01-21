@@ -69,7 +69,6 @@ exports.addGroup = async (req, res) => {
     else{
         res.json(updateRole);
     }
-    res.json(updateRole);
 }
 
 //#endregion

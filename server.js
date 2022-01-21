@@ -8,6 +8,7 @@ const app = express();
 const port = process.env.PORT;
 
 
+
 //pour accepeter les req de react
 let corsOptions = {
     origin: "http://localhost:4200"
@@ -33,7 +34,6 @@ require("./app/routes/auth.routes")(app);
 require("./app/routes/role.routes")(app);
 require("./app/routes/group.routes")(app);
 require("./app/routes/pebble.routes")(app);
-
 
 
 

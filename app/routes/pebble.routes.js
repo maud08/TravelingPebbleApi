@@ -9,6 +9,7 @@ module.exports = app => {
     unsecured.get("/:id", pebble.findOne);
     unsecured.put("/:id", pebble.update);
     unsecured.delete("/:id", pebble.delete);
+    unsecured.patch("/addPlayer/:id", pebble.addPlayer);
 
     app.use('/api/pebble', unsecured);
 

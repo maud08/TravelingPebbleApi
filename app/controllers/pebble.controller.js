@@ -17,8 +17,6 @@ exports.create = async (req, res) => {
             Position: req.body.Position,
             ImgFound: "",
             IdCreator: req.body.IdCreator,
-            IdPlayer: null,
-            IdGame: null
         })
 
         pebble
@@ -84,4 +82,23 @@ exports.delete = (req, res) => {
         res.status(500).send({message: `Le galet avec l'id: ${id} n'a pas été supprimé`})
     })
 }
+
+//#region Add player
+
+exports.addPlayer = async (req, res) => {
+
+    const { id } = req.params;
+    const updatePebble = await Pebble.findByIdAndUpdate(id, {
+        $push:{
+            IdPlayer: req.body.IdPlayer
+        }
+    }, {returnDocument: 'after'});
+    if(!updatePebble){
+        res.sendStatus(404);
+    }
+    else{
+        res.json(updatePebble);
+    }
+}
+//#endregion
 

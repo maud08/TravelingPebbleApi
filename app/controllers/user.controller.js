@@ -124,7 +124,6 @@ exports.addGroup = async (req, res) => {
     else{
         res.json(updateUser);
     }
-    res.json(updateUser);
 }
 
 //#endregion
@@ -143,14 +142,13 @@ exports.addRole = async (req, res) => {
         $push:{
             Roles: req.body.RoleId
         }
-    }, {returnDocument: 'after'}) // permet de récuper nouvel état
+    }, {returnDocument: 'after'}); // permet de récuper nouvel état
     if(!updateUser){
         res.sendStatus(404);
     }
     else{
         res.json(updateUser);
     }
-    res.json(updateUser);
 }
 
 //#endregion

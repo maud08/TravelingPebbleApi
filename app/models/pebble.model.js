@@ -1,5 +1,5 @@
-module.exports = mongosse => {
-    let pebbleSchema = mongosse.Schema({
+module.exports = mongoose => {
+    let pebbleSchema = mongoose.Schema({
         Img: {
             type: String
         },
@@ -19,16 +19,18 @@ module.exports = mongosse => {
             type: String
         },
         IdCreator: {
-            type: String,
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "user",
             require: true,
         },
-        IdPlayer: [
-            {
-                type: String
-            }
-        ],
+        IdPlayer:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "user",
+            default: undefined,
+        },
         IdGame: {
-            type: String
+            type: String,
+            default: '',
         }
 
     },{
@@ -37,6 +39,6 @@ module.exports = mongosse => {
         collection: 'pebble'
     });
 
-    const Pebble = mongosse.model("pebble", pebbleSchema);
+    const Pebble = mongoose.model("pebble", pebbleSchema);
     return Pebble;
 }
