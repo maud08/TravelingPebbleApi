@@ -4,7 +4,14 @@ module.exports = mongoose => {
             type: String,
             require: true,
             trim: true
-        }
+        },
+        Groups:[
+            {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: "group",
+              default: []
+            }
+        ],
     },{
         versionKey: false,
         timestamps: true,

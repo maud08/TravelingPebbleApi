@@ -9,7 +9,9 @@ exports.singIn = async (req, res) => {
                 _id: data.Id,
                 Email: data.Email,
                 Password: data.Password,
-                updatedAt: data.updatedAt
+                updatedAt: data.updatedAt,
+                Groups: data.Groups,
+                Roles: data.Roles
             }
 
             if(user !== null){

@@ -36,13 +36,15 @@ module.exports = mongoose => {
         Groups:[
             {
               type: mongoose.Schema.Types.ObjectId,
-              ref: "group"
+              ref: "group",
+              default: []
             }
         ],
         Roles:[
             {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "role"
+                ref: "role",
+                default: []
             }
         ]
     
