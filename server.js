@@ -10,11 +10,11 @@ const port = process.env.PORT;
 
 
 //pour accepeter les req de react
-let corsOptions = {
-    origin: "http://localhost:4200"
+var corsOptions = {
+  origin: "*"
 }
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions))
 
 // parse requests of content-type - application/json
 app.use(express.json());

@@ -33,20 +33,24 @@ module.exports = mongoose => {
             require: true,
             trim: true
         },
-        Groups:[
-            {
-              type: mongoose.Schema.Types.ObjectId,
-              ref: "group",
-              default: []
-            }
-        ],
-        Roles:[
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "role",
-                default: []
-            }
-        ]
+        UserRoles: {
+            type: Array,
+            default: ['User']
+        }
+        // Groups:[
+        //     {
+        //       type: mongoose.Schema.Types.ObjectId,
+        //       ref: "group",
+        //       default: []
+        //     }
+        // ],
+        // Roles:[
+        //     {
+        //         type: mongoose.Schema.Types.ObjectId,
+        //         ref: "role",
+        //         default: []
+        //     }
+        // ]
     
     },{
         versionKey: false,
@@ -55,11 +59,11 @@ module.exports = mongoose => {
     });
 
     //cryptage pwd
-    // userSchema.pre("save", async function(next){
-    //     const salt = await bcrypt.genSalt();
-    //     this.Password = await bcrypt.hash(this.Password, salt);
-    //     next();
-    // });
+    userSchema.pre("save", async function(next){
+        const salt = await bcrypt.genSalt();
+        this.Password = await bcrypt.hash(this.Password, salt);
+        next();
+    });
 
     const User = mongoose.model("user", userSchema);
     return User;
