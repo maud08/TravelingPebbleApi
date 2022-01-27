@@ -7,6 +7,14 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT;
 
+//save img
+const formData = require("express-form-data");
+const os = require("os");
+
+const options = {
+  uploadDir: os.tmpdir()
+}
+
 
 
 //pour accepeter les req de react
@@ -26,6 +34,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.json({ message: "Bienvenu sur l'API Traveling Pebble." });
 });
+
+app.use(formData.parse(options));
 
 
 //routes

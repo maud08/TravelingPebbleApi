@@ -11,11 +11,10 @@ exports.create = async (req, res) => {
         return;
     }
 
-    if(req.body.Position !== undefined){
+    if(req.body.IdCreator !== undefined){
         const pebble = new Pebble({
-            Img: req.body.Img,
-            Position: req.body.Position,
-            ImgFound: "",
+            Img: req.files.Img,
+            Position: {lat: req.body.lat, lng: req.body.lng},
             IdCreator: req.body.IdCreator,
         })
 
@@ -34,7 +33,10 @@ exports.create = async (req, res) => {
 
 exports.findAll = (req, res) => {
     Pebble.find()
-    .then(data=>{res.send(data)})
+    .then(data=>{
+        res.send(data)
+        console.log("file",req.files)
+    })
     .catch(err=>{res.status(500).send({message: err.message || "Erreur lors de la récupération des galets" })})
 }
 

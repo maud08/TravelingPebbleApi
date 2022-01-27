@@ -1,7 +1,8 @@
 module.exports = mongoose => {
     let pebbleSchema = mongoose.Schema({
         Img: {
-            type: String
+            type: Object,
+            require: true
         },
         Position: 
             {
@@ -16,7 +17,8 @@ module.exports = mongoose => {
             }
         ,
         ImgFound: {
-            type: String
+            type: Object,
+            default: null
         },
         IdCreator: {
             type: mongoose.Schema.Types.ObjectId,

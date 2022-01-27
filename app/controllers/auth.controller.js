@@ -1,26 +1,35 @@
 const auth = require("../tools/authentificator")
 const db = require("../models");
 const User = db.user;
+const bcrypt = require('bcrypt');
 
 exports.singIn = async (req, res) => {
     User.findOne({Email: req.body.Email}).then((data) => {
         if(data !== null && data.Email !== null){
             let user = {
-                _id: data.Id,
+                Id: data._id,
                 Email: data.Email,
                 Password: data.Password,
+                UserRoles: data.UserRoles,
                 updatedAt: data.updatedAt,
-                Groups: data.Groups,
-                Roles: data.Roles
             }
 
             if(user !== null){
-                if(req.body.Password !== user.Password){
-                    res.status(401).send({message:"Email ou mot de passe incorrect !"})
+                const decryptPassword = bcrypt.compare(req.body.Password, user.Password)
+                if(!decryptPassword){
+                    res.status(401).send({message:"Mot de passe incorrect !"})
                     return;
                 }
-                const accesToken = auth.generateToken(user);
-                res.status(200).send({accesToken});
+                else{
+                    const accesToken = auth.generateToken({
+                        Id: user.Id,
+                        Email: user.Email,
+                        UserRoles: user.UserRoles,
+                        updatedAt: user.updatedAt,
+                    });
+                    res.status(200).send({accesToken});
+                }
+                
             }
             else{
                 res.status(404).send({message: "Not Found"})
