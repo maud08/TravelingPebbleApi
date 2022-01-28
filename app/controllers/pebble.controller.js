@@ -1,19 +1,29 @@
 const { send } = require('express/lib/response');
 const db = require('../models');
+const fs = require('fs');
+const { nanoid } = require("nanoid");
 const Pebble = db.pebble;
 
 
 //CRUD
 
 exports.create = async (req, res) => {
+    //console.log(req.files)
     if(!req.body){
         res.status(400).send({message: "Pas de données a ajouter !"});
         return;
     }
+    var regex = /^data:.+\/(.+);base64,(.*)$/;
+    var matches = req.body.Img.match(regex);
+    var ext = matches[1];
+    var data = matches[2];
+    var buffer = Buffer.from(data, 'base64');
+    let url = 'images/' + nanoid() +'.' + ext;
+    fs.writeFileSync(url, buffer);
 
     if(req.body.IdCreator !== undefined){
         const pebble = new Pebble({
-            Img: req.files.Img,
+            Img: url,
             Position: {lat: req.body.lat, lng: req.body.lng},
             IdCreator: req.body.IdCreator,
         })

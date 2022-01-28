@@ -2,6 +2,8 @@
 require("dotenv").config({path: './config/.env'});
 require('./config/db');
 
+
+
 const cors = require("cors");
 const express = require("express");
 const app = express();
@@ -25,7 +27,8 @@ var corsOptions = {
 app.use(cors(corsOptions))
 
 // parse requests of content-type - application/json
-app.use(express.json());
+app.use(express.json({limit: '25mb'}));
+app.use(express.urlencoded({limit: '25mb'}));
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
@@ -36,6 +39,10 @@ app.get("/", (req, res) => {
 });
 
 app.use(formData.parse(options));
+
+//permet de rendre le dossier image public
+app.use('/images', express.static(__dirname + '/public/images'));
+
 
 
 //routes
