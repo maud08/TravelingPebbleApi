@@ -18,13 +18,13 @@ exports.create = async (req, res) => {
     var ext = matches[1];
     var data = matches[2];
     var buffer = Buffer.from(data, 'base64');
-    let url = 'images/' + nanoid() +'.' + ext;
+    let url = 'public/images/' + nanoid() +'.' + ext;
     fs.writeFileSync(url, buffer);
 
     if(req.body.IdCreator !== undefined){
         const pebble = new Pebble({
             Img: url,
-            Position: {lat: req.body.lat, lng: req.body.lng},
+            Position: req.body.Position,
             IdCreator: req.body.IdCreator,
         })
 
