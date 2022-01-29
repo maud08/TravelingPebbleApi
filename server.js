@@ -41,7 +41,7 @@ app.get("/", (req, res) => {
 app.use(formData.parse(options));
 
 //permet de rendre le dossier image public
-app.use('/images', express.static(__dirname + '/public/images'));
+app.use('/public/images', express.static(__dirname + '/public/images'));
 
 
 
