@@ -1,5 +1,9 @@
 module.exports = mongoose => {
     let pebbleSchema = mongoose.Schema({
+        Label: {
+            type: String,
+            require: true,
+        },
         Img: {
             type: Object,
             require: true

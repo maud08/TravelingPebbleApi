@@ -8,7 +8,6 @@ const Pebble = db.pebble;
 //CRUD
 
 exports.create = async (req, res) => {
-    //console.log(req.files)
     if(!req.body){
         res.status(400).send({message: "Pas de données a ajouter !"});
         return;
@@ -23,6 +22,7 @@ exports.create = async (req, res) => {
 
     if(req.body.IdCreator !== undefined){
         const pebble = new Pebble({
+            Label: req.body.Label,
             Img: url,
             Position: req.body.Position,
             IdCreator: req.body.IdCreator,
@@ -45,7 +45,6 @@ exports.findAll = (req, res) => {
     Pebble.find()
     .then(data=>{
         res.send(data)
-        console.log("file",req.files)
     })
     .catch(err=>{res.status(500).send({message: err.message || "Erreur lors de la récupération des galets" })})
 }
@@ -56,6 +55,22 @@ exports.findOne = (req, res) => {
     Pebble.findById(id)
     .then(data => {res.send(data)})
     .catch(err => {res.status(500).send({message: err.message || `Le galet avec l'id : ${id} n'a pas pu être trouvé`})})
+}
+
+exports.findCreator = (req,res) => {
+    const id = req.params.id;
+
+    Pebble.find({IdCreator: id})
+    .then(data => {res.send(data)})
+    .catch(err => {res.status(500).send({message: err.message || `Le créateur avec l'id : ${id} n'a pas pu être trouvé`})})
+}
+
+exports.findPlayer = (req,res) => {
+    const id = req.params.id;
+
+    Pebble.find({IdPlayer: id})
+    .then(data => {res.send(data)})
+    .catch(err => {res.status(500).send({message: err.message || `Le joueur avec l'id : ${id} n'a pas pu être trouvé`})})
 }
 
 exports.update = (req,res) => {
