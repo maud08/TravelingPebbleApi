@@ -4,21 +4,21 @@ module.exports = app => {
 
     const user = require('../controllers/user.controller')
 
-    let unsecured = require("express").Router();
-    //let secured = require("express").Router();
+    let router = require("express").Router();
     
-    unsecured.post("/register", user.create);
-    unsecured.patch("/register/group/:id", user.addGroup);
-    unsecured.patch("/register/role/:id", user.addRole);
+    //unsecured
+    router.post("/register", user.create);
+
+    //secured
+    router.patch("/register/group/:id", auth.authentificateToken, user.addGroup);
+    router.patch("/register/role/:id", auth.authentificateToken, user.addRole);
+    router.get("/", auth.authentificateToken, user.findAll);
+    router.get("/:id", auth.authentificateToken, user.findById);
+    router.put("/:id", auth.authentificateToken, user.update);
+    router.delete("/:id", auth.authentificateToken, user.delete);
 
 
-    unsecured.get("/",auth.authentificateToken,user.findAll);
-    unsecured.get("/:id", user.findById);
-    unsecured.put("/:id", user.update);
-    unsecured.delete("/:id", user.delete);
-
-
-    app.use('/api/user', unsecured);
+    app.use('/api/user', router);
 
 
 }

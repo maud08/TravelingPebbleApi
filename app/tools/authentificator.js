@@ -8,7 +8,7 @@ exports.generateToken = (user) => {
     return jwt.sign(user, process.env.TOKEN_SECRET, {expiresIn: maxAge})
 }
 
-//next permet d'enovoyer à la fonction middleware suivante
+//next permet d'envoyer à la fonction middleware suivante
 exports.authentificateToken = async (req, res, next) => {
     const authHeaders = req.headers['authorization']
     const token = authHeaders && authHeaders.split(' ')[1];

@@ -1,18 +1,22 @@
+const auth = require('../tools/authentificator');
+
 module.exports = app => {
     const pebble = require('../controllers/pebble.controller');
     
-    let unsecured = require("express").Router();
-    let secured = require("express").Router();
+    let router = require("express").Router();
 
-    unsecured.post("/", pebble.create);
-    unsecured.get("/", pebble.findAll);
-    unsecured.get("/:id", pebble.findOne);
-    unsecured.get("/creator/:id", pebble.findCreator);
-    unsecured.get("/player/:id", pebble.findPlayer);
-    unsecured.put("/:id", pebble.update);
-    unsecured.delete("/:id", pebble.delete);
-    unsecured.patch("/addPlayer/:id", pebble.addPlayer);
+    //unsecured
+    router.get("/", pebble.findAll);
 
-    app.use('/api/pebble', unsecured);
+    //secured
+    router.post("/", auth.authentificateToken, pebble.create);
+    router.get("/:id", auth.authentificateToken, pebble.findOne);
+    router.get("/creator/:id", auth.authentificateToken, pebble.findCreator);
+    router.get("/player/:id", auth.authentificateToken, pebble.findPlayer);
+    router.put("/:id", auth.authentificateToken, pebble.update);
+    router.delete("/:id", auth.authentificateToken, pebble.delete);
+    router.patch("/addPlayer/:id", auth.authentificateToken, pebble.addPlayer);
+
+    app.use('/api/pebble', router);
 
 }
